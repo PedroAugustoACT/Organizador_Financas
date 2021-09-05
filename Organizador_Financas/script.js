@@ -170,7 +170,7 @@ const Form =
 
     getValues()
     {
-        return{
+        return {
         description:Form.description.value,
         amount: Form.amount.value,
         date: Form.date.value,
@@ -201,23 +201,29 @@ const Form =
         }
     },
 
+    saveTransaction(transaction)
+    {
+        Transaction.add(transaction)
+    },
+
+    clearFields()
+    {
+        Form.description.value = ''
+        Form.amount.value = ''
+        Form.date.value = ''
+    },
+
     submit(event)
     {
             event.preventDefault()
 
             try{
-                //verificar se todas as informações foram preenchidas
                 Form.validateFields()
-                //formatar os dados para salvar
-                const transaction = Form.formatvalues()
-                //Form.formatData()
-                //salvar
-
-                //apagar os dados do formulario
-
-                //modal feche
-
-                //atualizar o app
+                const transaction = Form.formatValues()
+                Transaction.add(transaction)
+                Form.saveTransaction()
+                Form.clearFields()
+                Modal.close()
             } catch (error){
                 alert(error.message)
             }
